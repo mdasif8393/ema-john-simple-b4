@@ -4,7 +4,12 @@ import './Cart.css'
 
 const Cart = (props) => {
     const cart = props.cart;
-    const total = cart.reduce( (total, item) => total + item.price, 0);
+    // const total = cart.reduce( (total, item) => total + item.price + item.quantity, 0);
+
+    let total =0;
+    for(let i = 0; i < cart.length; i++) {
+        const product = cart[i];total = total + product.price * product.quantity;
+    }
 
     let shipping = 0;
     if(total > 0 && total <15){
@@ -28,7 +33,10 @@ const Cart = (props) => {
             <h3>Shipping: ${shipping}</h3>
             <h3>Tax: ${tax}</h3>
             <h4>Total: ${grandTotal}</h4>
-            <Link to="/review"><button className="main-button">Review Order</button></Link>
+            <br />
+            {
+                props.children
+            }
         </div>
     );
 };
